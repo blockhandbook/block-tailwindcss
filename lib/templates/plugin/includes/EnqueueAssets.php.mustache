@@ -1,0 +1,482 @@
+<?php
+/**
+ * Enqueue script and style assets.
+ *
+ * @package {{phpClassName}}
+ */
+
+namespace {{phpClassName}};
+
+/**
+ * Enqueue script and style assets.
+ *
+ * @since {{version}}
+ */
+class EnqueueAssets {
+
+	/**
+	 * Register class with appropriate WordPress hooks
+	 */
+	public static function register() {
+		$instance = new self();
+		{{#bootstrap}}
+
+		add_action( 'init', array( $instance, 'enqueue_styles' ) );
+			{{#registerBlocks}}
+			{{/registerBlocks}}
+			{{^registerBlocks}}
+				{{#registerFormats}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+				{{/registerFormats}}
+				{{^registerFormats}}
+					{{#registerFilters}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+					{{/registerFilters}}
+					{{^registerFilters}}
+						{{#register_block_patterns}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+						{{/register_block_patterns}}
+					{{/registerFilters}}
+				{{/registerFormats}}
+			{{/registerBlocks}}
+		{{/bootstrap}}
+		{{^bootstrap}}
+			{{#tailwindcss}}
+				{{#registerBlocks}}
+				{{/registerBlocks}}
+				{{^registerBlocks}}
+					{{#registerFormats}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+				{{/registerFormats}}
+				{{^registerFormats}}
+					{{#registerFilters}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+					{{/registerFilters}}
+					{{^registerFilters}}
+						{{#register_block_patterns}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+						{{/register_block_patterns}}
+					{{/registerFilters}}
+				{{/registerFormats}}
+			{{/registerBlocks}}
+		add_action( 'init', array( $instance, 'enqueue_styles' ) );
+			{{/tailwindcss}}
+			{{^tailwindcss}}
+				{{#register_blocks}}
+				{{! If using register_blocks, render nothing b/c this is getting enqueued in register_blocks }}
+				{{/register_blocks}}
+				{{^register_blocks}}
+					{{#registerFormats}}
+
+		add_action( 'init', array( $instance, 'enqueue_styles' ) );
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+					{{/registerFormats}}
+					{{^registerFormats}}
+						{{#registerFilters}}
+
+		add_action( 'init', array( $instance, 'enqueue_styles' ) );
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+						{{/registerFilters}}
+						{{^registerFilters}}
+							{{#register_block_patterns}}
+
+		add_action( 'init', array( $instance, 'enqueue_styles' ) );
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_editor_styles' ) );
+							{{/register_block_patterns}}
+						{{/registerFilters}}
+					{{/registerFormats}}
+				{{/register_blocks}}
+			{{/tailwindcss}}
+		{{/bootstrap}}
+		{{#register_blocks}}
+		{{! If using register_blocks, render nothing b/c this is getting enqueued in register_blocks }}
+		{{/register_blocks}}
+		{{^register_blocks}}
+			{{#registerFormats}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_scripts' ) );
+			{{/registerFormats}}
+			{{^registerFormats}}
+				{{! If not registerFormats & if registerFilters render, otherwise don't enqueue_block_editor_assets }}
+				{{#registerFilters}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_scripts' ) );
+				{{/registerFilters}}
+				{{^registerFilters}}
+					{{#register_block_patterns}}
+		add_action( 'enqueue_block_editor_assets', array( $instance, 'enqueue_scripts' ) );
+					{{/register_block_patterns}}
+				{{/registerFilters}}
+			{{/registerFormats}}
+		{{/register_blocks}}
+	}
+	{{! This is kinda crazy, but it accounts for all the variations... }}
+	{{#bootstrap}}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * @return void
+	 */
+	public function enqueue_styles() {
+
+		{{#registerBlocks}}
+		{{! If using register_blocks, render nothing b/c this is getting enqueued in register_blocks }}
+		{{/registerBlocks}}
+		{{^registerBlocks}}
+
+		// Enqueue common frontend & editor styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-style',
+			{{slugConstant}}_PLUGIN_URL . 'build/style-index.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/registerBlocks}}
+		{{#tailwindcss}}
+
+		// Enqueue tailwind styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-tailwind',
+			{{slugConstant}}_PLUGIN_URL . 'build/tailwind.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/tailwindcss}}
+		{{#bootstrap}}
+
+		// Enqueue bootstrap styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-bootstrap',
+			{{slugConstant}}_PLUGIN_URL . 'build/bootstrap.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/bootstrap}}
+	}
+	{{/bootstrap}}
+	{{^bootstrap}}
+		{{#tailwindcss}}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * @return void
+	 */
+	public function enqueue_styles() {
+		{{#registerBlocks}}
+		{{! If using register_blocks, render nothing b/c this is getting enqueued in register_blocks }}
+		{{/registerBlocks}}
+		{{^registerBlocks}}
+
+		// Enqueue common frontend & editor styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-style',
+			{{slugConstant}}_PLUGIN_URL . 'build/style-index.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/registerBlocks}}
+		{{#tailwindcss}}
+
+		// Enqueue tailwind styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-tailwind',
+			{{slugConstant}}_PLUGIN_URL . 'build/tailwind.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/tailwindcss}}
+		{{#bootstrap}}
+
+		// Enqueue bootstrap styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-bootstrap',
+			{{slugConstant}}_PLUGIN_URL . 'build/bootstrap.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/bootstrap}}
+	}
+		{{/tailwindcss}}
+		{{^tailwindcss}}
+			{{#register_blocks}}
+			{{/register_blocks}}
+			{{^register_blocks}}
+				{{#registerFormats}}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * @return void
+	 */
+	public function enqueue_styles() {
+		{{#registerBlocks}}
+		{{! If using register_blocks, render nothing b/c this is getting enqueued in register_blocks }}
+		{{/registerBlocks}}
+		{{^registerBlocks}}
+
+		// Enqueue common frontend & editor styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-style',
+			{{slugConstant}}_PLUGIN_URL . 'build/style-index.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/registerBlocks}}
+		{{#tailwindcss}}
+
+		// Enqueue tailwind styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-tailwind',
+			{{slugConstant}}_PLUGIN_URL . 'build/tailwind.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/tailwindcss}}
+		{{#bootstrap}}
+
+		// Enqueue bootstrap styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-bootstrap',
+			{{slugConstant}}_PLUGIN_URL . 'build/bootstrap.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/bootstrap}}
+	}
+				{{/registerFormats}}
+				{{^registerFormats}}
+					{{#registerFilters}}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * @return void
+	 */
+	public function enqueue_styles() {
+		{{#registerBlocks}}
+		{{! If using register_blocks, render nothing b/c this is getting enqueued in register_blocks }}
+		{{/registerBlocks}}
+		{{^registerBlocks}}
+
+		// Enqueue common frontend & editor styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-style',
+			{{slugConstant}}_PLUGIN_URL . 'build/style-index.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/registerBlocks}}
+		{{#tailwindcss}}
+
+		// Enqueue tailwind styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-tailwind',
+			{{slugConstant}}_PLUGIN_URL . 'build/tailwind.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/tailwindcss}}
+		{{#bootstrap}}
+
+		// Enqueue bootstrap styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-bootstrap',
+			{{slugConstant}}_PLUGIN_URL . 'build/bootstrap.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/bootstrap}}
+	}
+					{{/registerFilters}}
+					{{^registerFilters}}
+						{{#register_block_patterns}}
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * @return void
+	 */
+	public function enqueue_styles() {
+		{{#registerBlocks}}
+		{{! If using register_blocks, render nothing b/c this is getting enqueued in register_blocks }}
+		{{/registerBlocks}}
+		{{^registerBlocks}}
+
+		// Enqueue common frontend & editor styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-style',
+			{{slugConstant}}_PLUGIN_URL . 'build/style-index.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/registerBlocks}}
+		{{#tailwindcss}}
+
+		// Enqueue tailwind styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-tailwind',
+			{{slugConstant}}_PLUGIN_URL . 'build/tailwind.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/tailwindcss}}
+		{{#bootstrap}}
+
+		// Enqueue bootstrap styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-bootstrap',
+			{{slugConstant}}_PLUGIN_URL . 'build/bootstrap.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+		{{/bootstrap}}
+	}
+						{{/register_block_patterns}}
+					{{/registerFilters}}
+				{{/registerFormats}}
+			{{/register_blocks}}
+		{{/tailwindcss}}
+	{{/bootstrap}}
+	{{#register_blocks}}
+	{{! If using register_blocks, we don't need enqueue_block_editor_assets }}
+	{{/register_blocks}}
+	{{^register_blocks}}
+		{{#registerFormats}}
+
+	/**
+	 * Enqueue editor styles.
+	 *
+	 * @return void
+	 */
+	public function enqueue_editor_styles() {
+
+		// Enqueue editor only styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-style-editor',
+			{{slugConstant}}_PLUGIN_URL . 'build/index.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+	}
+		{{/registerFormats}}
+		{{^registerFormats}}
+			{{#registerFilters}}
+
+	/**
+	 * Enqueue editor styles.
+	 *
+	 * @return void
+	 */
+	public function enqueue_editor_styles() {
+
+		// Enqueue editor only styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-style-editor',
+			{{slugConstant}}_PLUGIN_URL . 'build/index.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+	}
+			{{/registerFilters}}
+			{{^registerFilters}}
+				{{#register_block_patterns}}
+
+	/**
+	 * Enqueue editor styles.
+	 *
+	 * @return void
+	 */
+	public function enqueue_editor_styles() {
+
+		// Enqueue editor only styles.
+		wp_enqueue_style(
+			{{slugConstant}}_PLUGIN_SLUG . '-style-editor',
+			{{slugConstant}}_PLUGIN_URL . 'build/index.css',
+			array(),
+			{{slugConstant}}_PLUGIN_VERSION
+		);
+	}
+				{{/register_block_patterns}}
+			{{/registerFilters}}
+		{{/registerFormats}}
+	{{/register_blocks}}
+	{{#register_blocks}}
+	{{! If using register_blocks, render nothing b/c this is getting enqueued in register_blocks }}
+	{{/register_blocks}}
+	{{^register_blocks}}
+		{{#registerFormats}}
+
+	/**
+	 * Register scripts.
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts() {
+
+		// Register scripts.
+		// Dynamically load dependencies using front.asset.php generated by
+		// @wordpress/dependency-extraction-webpack-plugin.
+		$script_asset = require '{{slugConstant}}_PLUGIN_PATH' . '/build/index.asset.php';
+
+		wp_enqueue_script(
+			{{slugConstant}}_PLUGIN_SLUG . '-block-editor',
+			{{slugConstant}}_PLUGIN_URL . 'build/index.js',
+			$script_asset['dependencies'],
+			$script_asset['version'],
+			true
+		);
+	}
+		{{/registerFormats}}
+		{{^registerFormats}}
+			{{#registerFilters}}
+
+	/**
+	 * Register scripts.
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts() {
+
+		// Register scripts.
+		// Dynamically load dependencies using front.asset.php generated by
+		// @wordpress/dependency-extraction-webpack-plugin.
+		$script_asset = require '{{slugConstant}}_PLUGIN_PATH' . '/build/index.asset.php';
+
+		wp_enqueue_script(
+			{{slugConstant}}_PLUGIN_SLUG . '-block-editor',
+			{{slugConstant}}_PLUGIN_URL . 'build/index.js',
+			$script_asset['dependencies'],
+			$script_asset['version'],
+			true
+		);
+	}
+			{{/registerFilters}}
+			{{^registerFilters}}
+				{{#register_block_patterns}}
+				{{! This is kinda hacky, include index.js even if just generating a blockPattern so that the style.css file is generated }}
+
+	/**
+	 * Register scripts.
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts() {
+
+		// Register scripts.
+		// Dynamically load dependencies using index.asset.php generated by
+		// @wordpress/dependency-extraction-webpack-plugin.
+		$script_asset = require '{{slugConstant}}_PLUGIN_PATH' . '/build/index.asset.php';
+
+		wp_enqueue_script(
+			{{slugConstant}}_PLUGIN_SLUG . '-block-editor',
+			{{slugConstant}}_PLUGIN_URL . 'build/index.js',
+			$script_asset['dependencies'],
+			$script_asset['version'],
+			true
+		);
+	}
+				{{/register_block_patterns}}
+			{{/registerFilters}}
+		{{/registerFormats}}
+	{{/register_blocks}}
+}

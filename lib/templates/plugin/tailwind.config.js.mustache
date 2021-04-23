@@ -1,0 +1,85 @@
+const isProduction = process.env.NODE_ENV === 'production';
+
+const config = {
+	future: {
+		removeDeprecatedGapUtilities: true,
+	},
+	theme: {
+		screens: {
+			lg: { max: '1023px' },
+			// => @media (max-width: 1023px) { ... }
+			md: { max: '767px' },
+			// => @media (max-width: 767px) { ... }
+			sm: { max: '639px' },
+			// => @media (max-width: 639px) { ... }
+		},
+		fontSize: {
+			xs: 'calc( var( --wp--preset--font-size--xs) * 1px )',
+			sm: 'calc( var( --wp--preset--font-size--sm) * 1px )',
+			base: 'calc( var( --wp--preset--font-size--base) * 1px )',
+			lg: 'calc( var( --wp--preset--font-size--lg) * 1px )',
+			xl: 'calc( var( --wp--preset--font-size--xl) * 1px )',
+			'2xl': 'calc( var( --wp--preset--font-size--2xl) * 1px )',
+			'3xl': 'calc( var( --wp--preset--font-size--3xl) * 1px )',
+			'4xl': 'calc( var( --wp--preset--font-size--4xl) * 1px )',
+			'5xl': 'calc( var( --wp--preset--font-size--5xl) * 1px )',
+			'6xl': 'calc( var( --wp--preset--font-size--6xl) * 1px )',
+		},
+		spacing: {
+			'0': '0',
+			'1': '8px',
+      '2': '12px',
+      '3': '16px',
+      '4': '24px',
+      '5': '32px',
+			'6': '48px',
+			'8': '32px',
+			'10': '40px',
+			'12': '48px',
+			'16': '64px',
+			'20': '80px',
+			'24': '96px',
+			'32': '128px',
+			'40': '160px',
+			'48': '192px',
+			'56': '224px',
+			'64': '256px'
+		},
+		{{#registerVariations}}
+		boxShadow: {
+			default: 'var( --{{slug}}-box-shadow )',
+			md: 'var( --{{slug}}-box-shadow-md )',
+			lg: 'var( --{{slug}}-box-shadow-lg )',
+			xl: 'var( --{{slug}}-box-shadow-xl )',
+		},
+		opacity: {
+			0: '0',
+			10: '.1',
+			20: '.2',
+			30: '.3',
+			40: '.4',
+			50: '.5',
+			60: '.6',
+			70: '.7',
+			80: '.8',
+			90: '.9',
+			100: '1',
+		},
+		{{/registerVariations}}
+	},
+	variants: {},
+	purge: {
+		content: [
+			'./build/*.js',
+			'./src/**/*.php',
+			'./node_modules/@blockhandbook/**/*.js',
+			'./includes/**/*.php',
+		]
+	},
+	plugins: [
+		require( 'tailwindcss' ),
+		require( 'autoprefixer' )
+	],
+};
+
+module.exports = config;

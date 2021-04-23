@@ -1,0 +1,40 @@
+{
+	"name": "{{slug}}/rich-text-block-with-plugin-sidebar",
+	"title": "Rich Text Block with Plugin Sidebar",
+	"category": "{{slug}}",
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": "*",
+			"default": "This is a rich text block with a plugin sidebar.  This block demonstrates how to use the rich text component that has saveable default settings that can be edited directly in the editor from the plugin sidebar. Click the plugin icon in the top right of the editor to check it out. This block also demonstrates how to set up a global data store for blocks.  Though it appears simple, it's quite the complicated block..."
+		},
+		"defaultFontSize": {
+			"type": "number"
+		},
+		"defaultTagName": {
+			"type": "string"
+		},
+		"fontSize": {
+			"type": "number"
+		},
+		"tagName": {
+			"type": "string",
+			"default": "p"
+		},
+		"useDefaultFontSize": {
+			"type": "boolean",
+			"default": true
+		},
+		"useDefaultTagName": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"editorScript": "file:../../../build/index.js",
+	"style": "file:../../../build/style-index.css",
+	"editorStyle": "file:../../../build/index.css",
+	"supports": {
+
+	}
+}

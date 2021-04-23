@@ -1,0 +1,22 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+// Escape forward slashes, otherwise this won't compile
+// i.e. .w-1\/3 {}
+
+.wp-block-{{slug}}-static-block-with-styles {
+	// write frontend and editor SASS here
+	padding: 20px;
+
+	&.is-style-light {
+		background-color: #fff;
+	}
+
+	&.is-style-dark {
+		background-color: #000;
+		color: #fff;
+	}
+}

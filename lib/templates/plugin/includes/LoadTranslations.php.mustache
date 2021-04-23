@@ -1,0 +1,62 @@
+<?php
+/**
+ * Load translated strings for our plugin.
+ *
+ * @package {{phpClassName}}
+ */
+
+namespace {{phpClassName}};
+
+/**
+ * Load plugin translations.
+ *
+ * @since {{version}}
+ */
+class LoadTranslations {
+
+	/**
+	 * Register class with appropriate WordPress hooks
+	 */
+	public static function register() {
+		$instance = new self();
+		add_action( 'init', array( $instance, 'load_script_translations' ), 99 );
+		add_action( 'plugins_loaded', array( $instance, 'load_php_translations' ) );
+	}
+
+	/**
+	 * Load translations in javascript files.
+	 *
+	 * @return void
+	 */
+	public function load_script_translations() {
+
+		/**
+		 * Loads translated strings written in JavaScript.
+		 *
+		 * @since {{version}}
+		 */
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations(
+				{{slugConstant}}_PLUGIN_SLUG . '-block-editor',
+				{{slugConstant}}_PLUGIN_SLUG,
+				{{slugConstant}}_PLUGIN_PATH . 'languages'
+			);
+		}
+	}
+
+	/**
+	 * Load translations in php files.
+	 *
+	 * @return void
+	 */
+	public function load_php_translations() {
+
+		// Load translated strings written in PHP.
+		// Reference: http://clivern.com/how-to-internationalize-your-wordpress-plugin/.
+		load_plugin_textdomain(
+			{{slugConstant}}_PLUGIN_TEXTDOMAIN,
+			false,
+			{{slugConstant}}_PLUGIN_SLUG . '/languages'
+		);
+	}
+}

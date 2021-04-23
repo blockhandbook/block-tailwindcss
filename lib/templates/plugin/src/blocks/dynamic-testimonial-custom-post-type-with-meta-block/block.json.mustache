@@ -1,0 +1,50 @@
+{
+	"name": "{{slug}}/dynamic-testimonial-custom-post-type-with-meta-block",
+	"title": "Dynamic Testimonial Custom Post Type with Meta Block",
+	"category": "{{slug}}",
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "full"
+		},
+		"showImg": {
+			"type": "boolean",
+			"default": true
+		},
+		"showCustomer": {
+			"type": "boolean",
+			"default": true
+		},
+		"showQuote": {
+			"type": "boolean",
+			"default": true
+		},
+		"postType": {
+			"type": "string",
+			"default": "testimonial"
+		},
+		"categories": {
+			"type": "array",
+			"default": [],
+			"items": { "type": "object" }
+		},
+		"postsToShow": {
+			"type": "number",
+			"default": 10
+		},
+		"order": {
+			"type": "string",
+			"default": "desc"
+		},
+		"orderBy": {
+			"type": "string",
+			"default": "date"
+		}
+	},
+	"editorScript": "file:../../../build/index.js",
+	"style": "file:../../../build/style-index.css",
+	"editorStyle": "file:../../../build/index.css",
+	"supports": {
+		"align": [ "center", "full", "wide" ]
+	}
+}

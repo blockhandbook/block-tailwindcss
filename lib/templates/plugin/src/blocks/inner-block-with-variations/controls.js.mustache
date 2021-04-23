@@ -1,0 +1,79 @@
+/**
+ * External Dependencies
+ */
+ {{#noCssFramework}}
+import { controls } from '@blockhandbook/controls';
+const {
+	BackgroundControls,
+	BorderControls,
+	BoxShadowControls,
+	SpacingControls
+} = controls;
+{{/noCssFramework}}
+{{#tailwindcss}}
+import { tailwindcssControls } from '@blockhandbook/tailwindcss-controls';
+const {
+	BackgroundControls,
+	BorderControls,
+	BoxShadowControls,
+	SpacingControls
+} = tailwindcssControls;
+{{/tailwindcss}}
+{{#bootstrap}}
+import { bootstrapControls } from '@blockhandbook/bootstrap-controls';
+const {
+	BackgroundControls,
+	BorderControls,
+	BoxShadowControls,
+	SpacingControls
+} = bootstrapControls;
+{{/bootstrap}}
+
+/**
+ * WordPress Dependencies
+ */
+import { __ } from '@wordpress/i18n';
+import { BlockControls, InspectorControls } from '@wordpress/block-editor';
+
+/**
+ * Internal Dependencies
+ */
+import icons from '../../utils/icons';
+import { config } from '../../../package.json';
+const { slug } = config;
+
+const Controls = ( props ) => {
+	const {
+		attributes,
+		setAttributes,
+	} = props;
+
+	return (
+		<>
+			<BlockControls></BlockControls>
+			<InspectorControls></InspectorControls>
+			<BackgroundControls
+				attributes={ attributes }
+				setAttributes={ setAttributes }
+				slug={ slug }
+			/>
+			<SpacingControls
+				attributes={ attributes }
+				setAttributes={ setAttributes }
+				slug={ slug }
+			/>
+			<BorderControls
+				attributes={ attributes }
+				setAttributes={ setAttributes }
+				slug={ slug }
+			/>
+			<BoxShadowControls
+				attributes={ attributes }
+				setAttributes={ setAttributes }
+				slug={ slug }
+			/>
+		</>
+	);
+}
+
+export default Controls;

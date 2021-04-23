@@ -1,0 +1,129 @@
+{
+	"name": "{{slug}}/inner-block-with-variations",
+	"title": "Inner Block with Variations",
+	"category": "{{slug}}",
+	"attributes": {
+		"backgroundImage": {
+			"type": "object",
+			"default": {
+				"id": null,
+				"url": null,
+				"size": null,
+				"customSize": false,
+				"attachment": "bg-scroll",
+				"repeat": "bg-no-repeat",
+				"backgroundSize": "bg-cover",
+				"position": "bg-center",
+				"opacity": "opacity-100",
+				"focalPoint":{
+					"x": 0.5,
+					"y": 0.5
+				},
+				"toolbar": true,
+				"sidebar": true
+			}
+		},
+		"backgroundColor": {
+			"type": "object",
+			"default": {
+				"color":"#ffffff",
+				"opacity":"opacity-100",
+				"sidebar": true
+			}
+		},
+		"padding": {
+			"type": "object",
+			"default": {
+				"top": 10,
+				"bottom": 10,
+				"left": 10,
+				"right": 10,
+				"sync": true,
+				"usePreset": true,
+				"preset": "p-{{#noCssFramework}}8{{/noCssFramework}}{{#tailwindcss}}8{{/tailwindcss}}{{#bootstrap}}5{{/bootstrap}}",
+				"toolbar": true,
+				"sidebar": true
+			}
+		},
+		"margin": {
+			"type": "object",
+			"default": {
+				"top": 10,
+				"bottom": 10,
+				"left": 10,
+				"right": 10,
+				"sync": true,
+				"usePreset": true,
+				"preset": "m-0",
+				"toolbar": true,
+				"sidebar": true
+			}
+		},
+		"borderRadius": {
+			"type": "object",
+			"default": {
+				"topLeft": 10,
+				"bottomLeft": 10,
+				"topRight": 10,
+				"bottomRight": 10,
+				"sync": true,
+				"usePreset": true,
+				"preset": "rounded-{{#noCssFramework}}lg{{/noCssFramework}}{{#tailwindcss}}lg{{/tailwindcss}}{{#bootstrap}}pill{{/bootstrap}}",
+				"toolbar": true,
+				"sidebar": true
+			}
+		},
+		"borderWidth": {
+			"type": "object",
+			"default": {
+				"top": 10,
+				"bottom": 10,
+				"left": 10,
+				"right": 10,
+				"sync": true,
+				"usePreset": true,
+				"preset": "border-0",
+				"toolbar": true,
+				"sidebar": true
+			}
+		},
+		"borderStyle": {
+			"type": "object",
+			"default": {
+				"style": "border-solid",
+				"sidebar": true
+			}
+		},
+		"borderColor": {
+			"type": "object",
+			"default": {
+				"color": "#000000",
+				"sidebar": true
+			}
+		},
+		"boxShadow" : {
+			"type": "object",
+			"default": {
+				"x": 6,
+				"y": 6,
+				"blur": 0,
+				"spread": 0,
+				"opacity": 20,
+				"usePreset": true,
+				"preset": "shadow-xl",
+				"toolbar": true,
+				"sidebar": true,
+				"color": "0,0,0"
+			}
+		},
+		"variationName": {
+			"type": "string"
+		}
+	},
+	"editorScript": "file:../../../build/index.js",
+	"style": "file:../../../build/style-index.css",
+	"editorStyle": "file:../../../build/index.css",
+	"supports": {
+
+	}
+}

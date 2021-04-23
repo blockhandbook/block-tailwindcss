@@ -1,0 +1,29 @@
+{{#tailwindcss}}
+const tailwindcss = require( 'tailwindcss' );
+{{/tailwindcss}}
+const autoprefixer = require( 'autoprefixer' );
+{{#noCssFramework}}
+{{/noCssFramework}}
+{{^noCssFramework}}
+
+const postcssPrependSelector = require( 'postcss-prepend-selector' )( {
+	selector: '[class*="{{slug}}"]',
+} );
+{{/noCssFramework}}
+
+module.exports = ( { file } ) => {
+	return {
+		plugins: [
+			{{#tailwindcss}}
+			file.basename.includes( 'tailwind' ) ? tailwindcss( './tailwind.config.js' ) : null,
+			file.basename.includes( 'tailwind' ) ? postcssPrependSelector : null,
+			{{/tailwindcss}}
+			{{#bootstrap}}
+			file.basename.includes( 'bootstrap' )
+				? postcssPrependSelector
+				: null,
+			{{/bootstrap}}
+			autoprefixer
+		],
+	};
+};

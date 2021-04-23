@@ -1,0 +1,109 @@
+/**
+ * External Dependencies
+ */
+import classnames from 'classnames';
+
+/**
+ * WordPress Dependencies
+ */
+import { __ } from '@wordpress/i18n';
+import { MediaPlaceholder, RichText } from '@wordpress/block-editor';
+import { useCallback } from '@wordpress/element';
+
+/**
+ * Internal Dependencies
+ */
+import Controls from './controls';
+
+/**
+ *
+ * Module Constants
+ */
+const ALLOWED_MEDIA_TYPES = [ 'image' ];
+
+const Edit = ( props ) => {
+	const {
+		attributes,
+		className,
+		setAttributes,
+		attributes: {
+			quote,
+			customer,
+			mediaId,
+			mediaUrl,
+			testimonial_meta
+		}
+	} = props;
+
+	// Will not change unless media changes
+	const onSelectImage = useCallback(
+		( media ) => {
+			setAttributes( {
+				mediaUrl: media.url,
+				mediaId: media.id,
+				testimonial_meta: {
+					...testimonial_meta,
+					mediaUrl: media.url,
+				}
+			} );
+		},
+		[ setAttributes ]
+	);
+
+	return (
+		<div className={ className } >
+			<div className="bg-white{{#tailwindcss}} p-10{{/tailwindcss}}{{#bootstrap}} p-5{{/bootstrap}}">
+				<Controls
+					className={ className }
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+					onSelectImage={ onSelectImage }
+				/>
+				<RichText
+					tagName="h2"
+					value={ quote }
+					placeholder={ __( 'This is a starter testimonial custom post type block.', '{{textdomain}}' )  }
+					onChange={ ( quote ) => setAttributes( {
+						quote,
+						testimonial_meta: {
+							...testimonial_meta,
+							quote,
+						}
+					} ) }
+				/>
+				<RichText
+					tagName="p"
+					value={ customer }
+					placeholder={ __( 'This custom block is registered as a template for the testimonial custom post type to use in the includes/class-register-testimonial-custom-post-type.php file.  The custom block can be edited in the src/blocks/testimonial-custom-post-type-block/edit.js file.', '{{textdomain}}' ) }
+					onChange={ ( customer ) => setAttributes( {
+						customer,
+						testimonial_meta: {
+							...testimonial_meta,
+							customer,
+						}
+					} ) }
+				/>
+				{
+					! mediaUrl &&
+					<MediaPlaceholder
+						icon="format-image"
+						labels={ {
+							title: __( 'Image', '{{textdomain}}' ),
+							instructions: __( 'Upload an image file or pick one from your media library.', '{{textdomain}}' ),
+						} }
+						accept="image/*"
+						allowedTypes={ ALLOWED_MEDIA_TYPES }
+						onSelect={ onSelectImage }
+						value={ { mediaId, mediaUrl } }
+					/>
+				}
+				{
+					mediaUrl &&
+					<img src={ mediaUrl } alt="test" />
+				}
+			</div>
+		</div>
+	);
+}
+
+export default Edit;

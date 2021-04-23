@@ -1,0 +1,42 @@
+{
+	"name": "{{slug}}/dynamic-team-custom-post-type-block",
+	"title": "Dynamic Team Custom Post Type Block",
+	"category": "{{slug}}",
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "full"
+		},
+		"postType": {
+			"type": "string",
+			"default": "team"
+		},
+		"categories": {
+			"type": "array",
+			"default": [],
+			"items": { "type": "object" }
+		},
+		"taxonomy": {
+			"type": "string",
+			"default": "department"
+		},
+		"postsToShow": {
+			"type": "number",
+			"default": 10
+		},
+		"order": {
+			"type": "string",
+			"default": "desc"
+		},
+		"orderBy": {
+			"type": "string",
+			"default": "date"
+		}
+	},
+	"editorScript": "file:../../../build/index.js",
+	"style": "file:../../../build/style-index.css",
+	"editorStyle": "file:../../../build/index.css",
+	"supports": {
+		"align": [ "center", "full", "wide" ]
+	}
+}

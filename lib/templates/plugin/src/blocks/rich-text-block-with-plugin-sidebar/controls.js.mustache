@@ -1,0 +1,87 @@
+/**
+ * External Dependencies
+ */
+
+/**
+ * WordPress Dependencies
+ */
+import { __ } from '@wordpress/i18n';
+import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
+import { FontSizePicker, BlockControls, InspectorControls } from '@wordpress/block-editor';
+
+/**
+ * Internal Dependencies
+ */
+import icons from '../../utils/icons';
+import { config } from '../../../package.json';
+const { slug } = config;
+
+const Controls = ( props ) => {
+	const {
+		setAttributes,
+		className,
+		attributes: {
+			// put attribute key names here to use them
+			fontSize,
+			tagName,
+			useDefault,
+			defaultFontSize,
+			defaultTagName,
+			useDefaultTagName,
+			useDefaultFontSize,
+		},
+	} = props;
+
+	return (
+		<>
+			<BlockControls></BlockControls>
+			<InspectorControls>
+				<PanelBody title={ __( 'Settings', '{{textdomain}}' ) } className="blocks-font-size">
+					{
+						! useDefaultFontSize &&
+						<FontSizePicker
+						value={ fontSize }
+						onChange={ ( size ) => {
+							if( ! size ) {
+								size = defaultFontSize;
+							}
+							setAttributes( { fontSize: size } ) } }
+						/>
+					}
+					<ToggleControl
+						label={ `Use default font size ${ useDefaultFontSize ? defaultFontSize : '' }${ useDefaultFontSize ? 'px' : '' }` }
+						checked={ useDefaultFontSize }
+						onChange={ () => setAttributes( { useDefaultFontSize: ! useDefaultFontSize } ) }
+					/>
+					{
+						! useDefaultTagName &&
+						<SelectControl
+							label={ __( 'HTML tag type', '{{textdomain}}' ) }
+							value={ tagName }
+							onChange={ ( tagName ) => setAttributes( { tagName } ) }
+							options={
+								[
+									{ value: 'p', label: __( 'p', '{{textdomain}}' ) },
+									{ value: 'h1', label: __( 'h1', '{{textdomain}}' ) },
+									{ value: 'h2', label: __( 'h2', '{{textdomain}}' ) },
+									{ value: 'h3', label: __( 'h3', '{{textdomain}}' ) },
+									{ value: 'h4', label: __( 'h4', '{{textdomain}}' ) },
+									{ value: 'h5', label: __( 'h5', '{{textdomain}}' ) },
+									{ value: 'h6', label: __( 'h6', '{{textdomain}}' ) },
+									{ value: 'div', label: __( 'div', '{{textdomain}}' ) },
+								]
+							}
+						/>
+					}
+					<ToggleControl
+						label={ `Use default ${ useDefaultTagName ? defaultTagName : '' } tag` }
+						checked={ useDefaultTagName }
+						onChange={ () => setAttributes( { useDefaultTagName: ! useDefaultTagName } ) }
+					/>
+				</PanelBody>
+			</InspectorControls>
+		</>
+	);
+}
+
+export default Controls;

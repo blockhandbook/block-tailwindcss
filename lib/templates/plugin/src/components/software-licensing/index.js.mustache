@@ -1,0 +1,182 @@
+/**
+ * External Dependencies
+ */
+
+/**
+ * WordPress Dependencies
+ */
+import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
+import {
+	BaseControl,
+	Button,
+	TextControl,
+} from '@wordpress/components';
+import apiFetch from '@wordpress/api-fetch';
+import { dispatch, useSelect } from '@wordpress/data';
+
+/**
+ * Internal Dependencies
+ */
+import './index.scss';
+import { config } from '../../../package';
+const { slug } = config;
+
+const SoftwareLicensing = ( props ) => {
+	const { label } = props;
+
+	const { licenseKey, licenseStatus } = useSelect(
+		( select ) => {
+			const pluginSettings = select(
+				`${ slug }/settings`
+			).getPluginSettings();
+			return {
+				licenseKey: pluginSettings.licenseKey,
+				licenseStatus: pluginSettings.licenseStatus };
+	} );
+
+	const [ newLicenseKey, setLicenseKey ] = useState( licenseKey );
+
+	const updatePluginSettings = async ( data, action ) => {
+		console.log( data )
+		const request = apiFetch( {
+			path: `${ slug }/v1/edd-sl/${ action }`,
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			method: 'POST',
+			body: JSON.stringify( data ),
+		} );
+
+		try {
+			const response = await request;
+			if ( response ) {
+				console.log( response )
+				dispatch( 'core/notices' ).createSuccessNotice( 'Settings saved', {
+					type: 'snackbar',
+				} );
+				dispatch( `${ slug }/settings` ).updatePluginSettings( response.settings );
+			}
+		} catch ( error ) {
+			const errorNotice = 'Setting was not updated, please try again.';
+			dispatch( 'core/notices' ).createNotice( 'error', errorNotice );
+		}
+	};
+
+	return (
+		<>
+			<BaseControl
+				className={ `${ slug } block` }
+				label={ label ? label : '' }
+			/>
+			<TextControl
+				className={ licenseStatus === 'valid' ? 'valid' : '' }
+				value={ newLicenseKey }
+				help={ licenseStatus }
+				onChange={ ( value ) => setLicenseKey( value ) }
+			/>
+			<Button
+				className={ `${ slug } mb-3 block` }
+				isPrimary={ licenseStatus !== 'valid' }
+				isLink={ licenseStatus === 'valid' }
+				onClick={ () => {
+						const data = {
+							licenseKey: newLicenseKey,
+						};
+
+						const action = licenseStatus === 'valid' ? 'deactivate' : 'activate';
+
+						updatePluginSettings( data, action );
+					}
+				}
+			>
+				{ licenseStatus !== 'valid' ? __( 'Activate', '{{textdomain}}' ) : __( 'Deactivate', '{{textdomain}}' ) }
+			</Button>
+		</>
+	);
+}
+
+export default SoftwareLicensing;
+
+
+
+// kept this in case I can find a way to implement direct calls to edd-sl api
+// useEffect( () => {
+
+// }	)
+
+// const checkLicense = async () => {
+
+// 	const data = {
+// 		edd_action: 'check_license',
+// 		license:    'accb5a333071529b45bc918f51baae2e',
+// 		item_name:  encodeURIComponent('{{Title}} Plugin'),
+// 		url: window.location.host
+// 	};
+
+// 	// const url = new URL( 'https://wpplugin.com/' );
+// 	// url.search = new URLSearchParams( data ).toString();
+
+// 	// keep this example using an external URL instead of path on the server
+// 	const request = apiFetch( {
+// 		url: `https://wpplugin.com/edd-sl/`,
+// 		headers: {
+// 			Accept: 'application/json',
+// 			'Content-Type': 'jsonp',
+// 		},
+// 		method: 'POST',
+// 		body: JSON.stringify( data ),
+// 		mode: 'no-cors'
+// 	} );
+
+// 	const response = await request;
+// 	console.log( response );
+// }
+
+// checkLicense();
+
+// const checkLicense = () => {
+// 	// Handling a SoftwAre licensing request without jQuery in pure JavaScript
+// 	var xhttp = new XMLHttpRequest();
+
+// 	// The url to the site running Easy Digital Downloads w/ Software Licensing
+// 	var postUrl = 'https://wpplugin.com/edd-sl/';
+
+// 	xhttp.onreadystatechange = function() {
+// 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+// 					var slData = JSON.parse(xhttp.responseText);
+// 					handleSoftwareLicensingResponse( slData );
+// 			}
+// 	}
+
+// 	var data = {
+// 			edd_action: 'check_license', // Valid actions are activate_license, deactivate_license, get_version, check_license
+// 			license:    'accb5a333071529b45bc918f51baae2e',
+// 			item_name:  encodeURIComponent('{{title}} Plugin'),
+// 			url: 'localhost:3004' // If you Disable URL Checking, you do not need this entry
+// 	};
+
+// 	xhttp.open("POST", postUrl, true);
+// 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+// 	xhttp.setRequestHeader("Access-Control-Allow-Origin", "http://localhost:3004");
+
+// 	var values = '';
+// 	for (var key in data){
+// 			values += key + '=' + data[ key ] + '&';
+// 	}
+// 	values = values.substring(0, values.length - 1);
+
+// 	xhttp.send(values);
+// }
+
+// function handleSoftwareLicensingResponse( slData ) {
+//   if ( slData.success == true ) {
+//       console.log(slData);
+//       // Software Licensing has a valid response to parse
+//   } else {
+//       // Invalid request was made to software licensing
+//   }
+// }
+
+// checkLicense();

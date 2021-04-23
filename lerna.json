@@ -1,0 +1,14 @@
+{
+  "npmClient": "npm",
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "package-lock.json"
+      ]
+    }
+  },
+  "packages": [
+    "."
+  ],
+  "version": "independent"
+}

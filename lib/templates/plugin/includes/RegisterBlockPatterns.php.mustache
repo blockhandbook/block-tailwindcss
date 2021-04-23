@@ -1,0 +1,82 @@
+<?php
+/**
+ * Register block scripts and styles.
+ *
+ * @package {{phpClassName}}
+ */
+
+namespace {{phpClassName}};
+
+/**
+ * Register block patterns.
+ *
+ * @since {{version}}
+ */
+class RegisterBlockPatterns {
+
+	/**
+	 * Register class with appropriate WordPress hooks
+	 */
+	public static function register() {
+		$instance = new self();
+		add_action( 'init', array( $instance, 'register_patterns' ) );
+	}
+
+	/**
+	 * Register block pattern.
+	 *
+	 * @return void
+	 */
+	public function register_patterns() {
+
+		if ( function_exists( 'register_block_pattern' ) ) {
+
+			/**
+			* Register block pattern category
+			*/
+			register_block_pattern_category(
+				{{slugConstant}}_PLUGIN_SLUG,
+				array(
+					'label' => __( '{{title}}', '{{textdomain}}' ),
+				)
+			);
+
+			/**
+			* Register block patterns
+			* Tool to escape strings: https://onlinestringtools.com/escape-string
+			*/
+			// Add our patterns.
+			foreach ( $this->get_patterns() as $name => $pattern ) {
+				register_block_pattern( $name, $pattern );
+			}
+		}
+	}
+
+	/**
+	 * Register get block patterns from block-pattern directory.
+	 *
+	 * @return array
+	 */
+	public function get_patterns() {
+
+		$patterns = array();
+
+		// Get all php pattern files.
+		foreach ( glob( {{slugConstant}}_PLUGIN_PATH . 'includes/block-patterns/*.php' ) as $pattern_file ) {
+			$pattern_name              = {{slugConstant}}_PLUGIN_SLUG . basename( $pattern_file );
+			$patterns[ $pattern_name ] = require_once $pattern_file;
+		};
+
+		// Get all json pattern files.
+		foreach ( glob( {{slugConstant}}_PLUGIN_PATH . 'includes/block-patterns/*.json' ) as $pattern_file ) {
+			$pattern_name              = {{slugConstant}}_PLUGIN_SLUG . basename( $pattern_file );
+			$patterns[ $pattern_name ] = json_decode(
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+				file_get_contents( $pattern_file ),
+				true
+			);
+		};
+
+		return $patterns;
+	}
+}

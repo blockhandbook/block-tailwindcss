@@ -1,0 +1,38 @@
+/*!
+ * This file is for common or global frontend and editor styles.
+ *
+ * The following styles get applied on both the front of your
+ * site and in the editor.  Place styles in the custom namespace below
+ * so they don't bleed into the rest of the editor/site.
+*/
+// Escape forward slashes, otherwise they won't compile
+// i.e. .w-1\/3 {}
+
+// Custom namespace
+[class*="{{slug}}"] {
+	// write common plugin/block SASS styles here.
+	{{#bootstrap}}
+		{{#registerVariations}}
+
+	--{{slug}}-box-shadow-color: 0,0,0;
+
+	/* Box Shadow */
+	--{{slug}}-box-shadow-sm: 0 1px 3px 0 rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 1px 2px 0 rgba( var( --{{slug}}-box-shadow-color ), 0.06);
+	--{{slug}}-box-shadow-md:0 4px 6px -1px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 2px 4px -1px rgba( var( --{{slug}}-box-shadow-color ), 0.06);
+	--{{slug}}-box-shadow-lg:0 10px 15px -3px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 4px 6px -2px rgba( var( --{{slug}}-box-shadow-color ), 0.05);
+	--{{slug}}-box-shadow-xl:0 20px 25px -5px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 10px 10px -5px rgba( var( --{{slug}}-box-shadow-color ), 0.04);
+		{{/registerVariations}}
+	{{/bootstrap}}
+	{{#tailwindcss}}
+		{{#registerVariations}}
+
+	--{{slug}}-box-shadow-color: 0,0,0;
+
+  /* Box Shadow */
+	--{{slug}}-box-shadow: 0 1px 3px 0 rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 1px 2px 0 rgba( var( --{{slug}}-box-shadow-color ), 0.06);
+	--{{slug}}-box-shadow-md:0 4px 6px -1px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 2px 4px -1px rgba( var( --{{slug}}-box-shadow-color ), 0.06);
+	--{{slug}}-box-shadow-lg:0 10px 15px -3px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 4px 6px -2px rgba( var( --{{slug}}-box-shadow-color ), 0.05);
+	--{{slug}}-box-shadow-xl:0 20px 25px -5px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 10px 10px -5px rgba( var( --{{slug}}-box-shadow-color ), 0.04);
+		{{/registerVariations}}
+	{{/tailwindcss}}
+}

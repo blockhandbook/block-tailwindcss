@@ -1,0 +1,22 @@
+{
+	"name":"{{namespace}}/{{slug}}",
+	"description":"{{{description}}}",
+	"version":"{{version}}",
+	"type": "wordpress-plugin",
+	"require": {
+		"php": ">=5.6"
+	},
+	"config": {
+		"platform": {
+			"php": "5.6"
+		}
+	},
+  "autoload": {
+    "psr-4": {
+      "{{phpClassName}}\\":"includes/"
+		}
+	},
+	"scripts": {
+		"regenerate-autoloader":"composer dumpautoload -o"
+	}
+}

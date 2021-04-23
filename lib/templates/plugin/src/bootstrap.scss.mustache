@@ -1,0 +1,225 @@
+/*!
+ * Bootstrap Styles
+ *
+ * Bootstrap styles get applied and enqueued on both the front of your
+ * site and in the editor.
+ *
+ * All styles get prepended with a custom namespace so Bootstrap styles
+ * don't bleed into the rest of the site.
+ *
+ * i.e. - If your plugin slug is 'test-test' then all Bootstrap styles
+ * will be prepended with [class*="test-test"].
+ *
+ * You can edit the prepended selector in the root postcss.config.js file
+*/
+
+// Override Bootstrap's Sass default variables
+// Nearly all variables in Bootstrap are written with the `!default` flag.
+// This allows you to override the default values of those variables before you import Bootstrap's source Sass files.
+// Overriding the default variable values is the best way to customize your CSS without writing _new_ styles. For example, change you can either change `$body-color` or write more CSS that override's Bootstrap's CSS like so: `body { color: red; }`.
+
+// Toggle global options
+$spacer: 16px;
+$enable-shadows: true;
+// These are set to their default values
+$enable-rounded: true;
+$enable-gradients: false;
+$enable-transitions: true;
+$enable-reduced-motion: true;
+$enable-grid-classes: true;
+$enable-caret: true;
+$enable-button-pointers: true;
+$enable-rfs: true;
+$enable-validation-icons: true;
+$enable-negative-margins: false;
+$enable-deprecation-messages: false;
+$enable-important-utilities: true;
+{{#registerVariations}}
+
+// Customize some defaults
+$body-bg: #fff;
+
+$utilities: (
+	"background-attachment": (
+		class: bg,
+		property: background-attachment,
+		values: (
+			local:local,
+			fixed:fixed,
+			scroll:scroll,
+		)
+	),
+	"background-size": (
+		class:bg,
+		property: background-size,
+		values: (
+			cover: cover,
+			contain: contain,
+			auto: auto,
+		)
+	),
+	"background-position": (
+		class: bg,
+		property: background-position,
+		values: (
+			center:center,
+			bottom:bottom,
+			left:left,
+			left-bottom:left bottom,
+			left-top:left top,
+			right:right,
+			right-bottom:right bottom,
+			right-top:right top,
+			top:top,
+		)
+	),
+	"background-repeat": (
+		class:bg,
+		property: background-repeat,
+		values: (
+			no-repeat: no-repeat,
+			repeat: repeat,
+			repeat-x: repeat-x,
+			repeat-round: round,
+			repeat-space: space,
+		)
+	),
+	"border-style": (
+		property: border-style,
+		class: border,
+    values: (
+			"solid": solid,
+			"dashed": dashed,
+			"dotted": dotted,
+			"double": double
+    )
+	),
+	"border-width": (
+		property: border-width,
+		class: border,
+    values: (
+			1: 1px,
+      2: 2px,
+      4: 4px,
+			8: 8px,
+    )
+	),
+	"height": (
+		property: height,
+		class: h,
+		values:(
+			0: 0,
+			1: .25rem,
+			2: .5rem,
+			3: .75rem,
+			4: 1rem,
+			5: 1.25rem,
+			6: 1.5rem,
+			8: 2rem,
+			10: 2.5rem,
+			12: 3rem,
+			16: 4rem,
+			20: 5rem,
+			24: 6rem
+		)
+	),
+	"inset": (
+		property: ( top, right, bottom, left ),
+		class: inset,
+		values: (
+			0:0,
+		)
+	),
+	"opacity": (
+    property: opacity,
+    values: (
+			0: 0,
+      10: .10,
+      20: .20,
+			30: .30,
+			40: .40,
+			50: .50,
+			60: .60,
+			70: .70,
+			80: .80,
+			90: .90,
+      100: 1,
+    )
+	),
+	"shadow": (
+		property: box-shadow,
+		class: shadow,
+		values:(
+			sm: var( --{{slug}}-box-shadow-sm ),
+			md: var( --{{slug}}-box-shadow-md ),
+			lg: var( --{{slug}}-box-shadow-lg ),
+			xl: var( --{{slug}}-box-shadow-xl ),
+		)
+	),
+	"z": (
+		property: z-index,
+		class:z,
+		values:(
+			0:0,
+			1:1,
+			10:10
+		)
+	)
+ );
+{{/registerVariations}}
+
+// Bring in Bootstrap
+
+// Option 1
+//
+// Import all of Bootstrap's CSS
+// @import "bootstrap/scss/bootstrap";
+
+// Option 2
+//
+// Import just the styles you need. Note that some stylesheets are required no matter what.
+
+@import "bootstrap/scss/functions"; // Required
+@import "bootstrap/scss/variables"; // Required
+@import "bootstrap/scss/mixins"; // Required
+@import "bootstrap/scss/root";
+// @import "bootstrap/scss/reboot"; // Required
+// @import "bootstrap/scss/type";
+// @import "bootstrap/scss/images";
+// @import "bootstrap/scss/code";
+@import "bootstrap/scss/grid";
+// @import "bootstrap/scss/tables";
+// @import "bootstrap/scss/forms";
+// @import "bootstrap/scss/buttons";
+// @import "bootstrap/scss/transitions";
+// @import "bootstrap/scss/dropdown";
+// @import "bootstrap/scss/button-group";
+// @import "bootstrap/scss/input-group"; // Requires forms
+// @import "bootstrap/scss/custom-forms";
+// @import "bootstrap/scss/nav";
+// @import "bootstrap/scss/navbar"; // Requires nav
+// @import "bootstrap/scss/card";
+// @import "bootstrap/scss/breadcrumb";
+// @import "bootstrap/scss/pagination";
+// @import "bootstrap/scss/badge";
+// @import "bootstrap/scss/jumbotron";
+// @import "bootstrap/scss/alert";
+// @import "bootstrap/scss/progress";
+// @import "bootstrap/scss/media";
+// @import "bootstrap/scss/list-group";
+// @import "bootstrap/scss/close";
+// @import "bootstrap/scss/toasts";
+// @import "bootstrap/scss/modal"; // Requires transitions
+// @import "bootstrap/scss/tooltip";
+// @import "bootstrap/scss/popover";
+// @import "bootstrap/scss/carousel";
+// @import "bootstrap/scss/spinners";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/utilities/api";
+// @import "bootstrap/scss/print";
+
+// Custom utilities
+// FYI added this single utility so we didn't need to use a handful of imports to use it.
+.list-unstyled {
+	list-style:none;
+}

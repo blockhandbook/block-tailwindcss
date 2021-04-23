@@ -1,0 +1,22 @@
+name: Sync assets with wordpress.org
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'readme.txt'
+    - '.wordpress-org/**'
+jobs:
+  master:
+    name: Push to master
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: WordPress.org plugin asset/readme update
+      uses: selul/action-wordpress-plugin-asset-update@develop
+      env:
+        SVN_PASSWORD: ${{=<% %>=}}{{ secrets.SVN_PASSWORD }}<%={{ }}=%>
+        SVN_USERNAME: ${{=<% %>=}}{{ secrets.SVN_USERNAME }}<%={{ }}=%>
+        SLUG: {{slug}}
+        README_NAME: readme.txt
+        ASSETS_DIR: .wordpress-org

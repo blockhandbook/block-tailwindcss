@@ -1,0 +1,146 @@
+/**
+ * External Dependencies
+ */
+{{#registerBlocks}}
+import {
+{{/registerBlocks}}
+{{^registerBlocks}}
+	{{#registerFilters}}
+import {
+	{{/registerFilters}}
+	{{^registerFilters}}
+		{{#registerFormats}}
+import {
+		{{/registerFormats}}
+		{{^registerFormats}}
+			{{#registerPlugins}}
+import {
+			{{/registerPlugins}}
+			{{^registerPlugins}}
+				{{#registerStores}}
+import {
+				{{/registerStores}}
+				{{^registerStores}}
+					{{#registerVariations}}
+import {
+					{{/registerVariations}}
+				{{/registerStores}}
+			{{/registerPlugins}}
+		{{/registerFormats}}
+	{{/registerFilters}}
+{{/registerBlocks}}
+	{{#registerBlocks}}
+	registerBlocks,
+	{{/registerBlocks}}
+	{{#registerFilters}}
+	registerFilters,
+	{{/registerFilters}}
+	{{#registerFormats}}
+	registerFormats,
+	{{/registerFormats}}
+	{{#registerPlugins}}
+	registerPlugins,
+	{{/registerPlugins}}
+	{{#registerStores}}
+	registerStores,
+	{{/registerStores}}
+	{{#registerVariations}}
+	registerVariations,
+	{{/registerVariations}}
+{{#registerBlocks}}
+{{! } from '@blockhandbook/block-hot-loader'; }}
+} from '@blockhandbook/block-fast-refresh';
+{{/registerBlocks}}
+{{^registerBlocks}}
+	{{#registerFilters}}
+{{! } from '@blockhandbook/block-hot-loader';}}
+} from '@blockhandbook/block-fast-refresh';
+	{{/registerFilters}}
+	{{^registerFilters}}
+		{{#registerFormats}}
+{{! } from '@blockhandbook/block-hot-loader'; }}
+} from '@blockhandbook/block-fast-refresh';
+		{{/registerFormats}}
+		{{^registerFormats}}
+			{{#registerPlugins}}
+{{! } from '@blockhandbook/block-hot-loader'; }}
+} from '@blockhandbook/block-fast-refresh';
+			{{/registerPlugins}}
+			{{^registerPlugins}}
+				{{#registerStores}}
+{{! } from '@blockhandbook/block-hot-loader'; }}
+} from '@blockhandbook/block-fast-refresh';
+				{{/registerStores}}
+				{{^registerStores}}
+					{{#registerVariations}}
+{{! } from '@blockhandbook/block-hot-loader'; }}
+} from '@blockhandbook/block-fast-refresh';
+					{{/registerVariations}}
+				{{/registerStores}}
+			{{/registerPlugins}}
+		{{/registerFormats}}
+	{{/registerFilters}}
+{{/registerBlocks}}
+
+/**
+ * WordPress Dependencies
+ */
+
+/**
+ * Internal Dependencies
+ */
+import './index.scss';
+import './style.scss';
+
+{{#registerCategories}}
+// Register block categories.
+import './utils/register-categories';
+{{/registerCategories}}
+{{#registerBlocks}}
+
+/** Hot Block Loading & Registering Blocks for production **/
+registerBlocks( {
+	context: () => require.context( './blocks', true, /index\.js$/ ),
+	module,
+} );
+{{/registerBlocks}}
+{{#registerFilters}}
+
+/** Hot Filter Loading & Registering Filters for production **/
+registerFilters( {
+	context: () => require.context( './filters', true, /index\.js$/ ),
+	module,
+} );
+{{/registerFilters}}
+{{#registerFormats}}
+
+/** Hot Format Loading & Registering Formats for production **/
+registerFormats( {
+	context: () => require.context( './formats', true, /index\.js$/ ),
+	module,
+} );
+{{/registerFormats}}
+{{#registerPlugins}}
+
+/** Hot Plugin Loading & Registering Plugins for production **/
+registerPlugins( {
+	context: () => require.context( './plugins', true, /index\.js$/ ),
+	module,
+} );
+{{/registerPlugins}}
+{{#registerStores}}
+
+/** Hot Store Loading & Registering Stores for production **/
+registerStores( {
+	context: () => require.context( './stores', true, /index\.js$/ ),
+	module,
+} );
+{{/registerStores}}
+{{#registerVariations}}
+
+/** Hot Variation Loading & Registering Variations for production **/
+registerVariations( {
+	context: () => require.context( './blocks', true, /variations\.js$/ ),
+	module,
+} );
+{{/registerVariations}}

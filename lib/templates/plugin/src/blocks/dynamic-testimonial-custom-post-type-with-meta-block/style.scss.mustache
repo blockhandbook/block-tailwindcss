@@ -1,0 +1,31 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+// Escape forward slashes, otherwise this won't compile
+// i.e. .w-1\/3 {}
+
+.wp-block-{{slug}}-dynamic-testimonial-custom-post-type-with-meta-block {
+	// write frontend and editor SASS here
+	{{#noCssFramework}}
+
+	.posts-container {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 2.5rem;
+
+		.bg-white {
+			background: #fff;
+			padding: 2.5rem;
+		}
+
+		img {
+			width: 5rem;
+			height: 5rem;
+			border-radius: 9999px;
+		}
+	}
+	{{/noCssFramework}}
+}

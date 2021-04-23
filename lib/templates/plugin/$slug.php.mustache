@@ -1,0 +1,134 @@
+<?php
+/**
+ * Plugin Name: {{title}}
+ * Description: {{{description}}}
+ * Version: {{version}}
+ * Plugin URI: {{{pluginURI}}}
+ * Author: {{author}}
+ * Author URI: {{{authorURI}}}
+ * Domain Path: /languages
+ * License: {{license}}
+ * License URI: {{{licenseURI}}}
+ * Tested up to: 5.5
+ * Requires at least: 5.0
+ * Requires PHP: 7.0
+ * Text Domain: {{textdomain}}
+ *
+ * @package {{phpClassName}}
+ */
+
+namespace {{phpClassName}};
+
+require __DIR__ . '/vendor/autoload.php';
+
+define( '{{slugConstant}}_PLUGIN_VERSION', '{{version}}' );
+define( '{{slugConstant}}_PLUGIN_SLUG', '{{slug}}' );
+define( '{{slugConstant}}_PLUGIN_SLUG_SNAKE_CASE', '{{slugSnakeCase}}' );
+define( '{{slugConstant}}_PLUGIN_SLUG_CAMEL_CASE', '{{slugCamelCase}}' );
+define( '{{slugConstant}}_PLUGIN_TEXTDOMAIN', '{{textdomain}}' );
+define( '{{slugConstant}}_PLUGIN_FILE', __FILE__ );
+define( '{{slugConstant}}_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( '{{slugConstant}}_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+
+{{#softwareLicensing}}
+// Software Licensing CONSTANTS
+// this is the URL our updater / license checker pings. This should be the URL of the site with EDD installed.
+define( '{{slugConstant}}_PLUGIN_STORE_URL', '{{{pluginURI}}}' );
+
+// the download ID for the product in Easy Digital Downloads.
+define( '{{slugConstant}}_PLUGIN_ITEM_ID', 1 );
+
+// the name of the product in Easy Digital Downloads.
+define( '{{slugConstant}}_PLUGIN_ITEM_NAME', '{{title}}' );
+{{# nothin }}
+// the name of the settings page for the license input to be displayed.
+// define( '{{slugConstant}}_PLUGIN_LICENSE_PAGE', '{{slug}}-plugin-license' );
+{{/ nothin }}
+{{/softwareLicensing}}
+
+if ( ! class_exists( 'Plugin' ) ) {
+	/**
+	 * Plugin Class.
+	 *
+	 * @since {{version}}
+	 */
+	class Plugin {
+
+		/**
+		 * Class instance.
+		 *
+		 * @var Plugin
+		 */
+		private static $instance = null;
+
+		/**
+		 * Theme constructor.
+		 * Called immediately when you instantiate a class.
+		 * Really good article on setting up constructors for WP classes.
+		 * https://carlalexander.ca/designing-class-wordpress-hooks/
+		 */
+		private function __construct() {
+
+		}
+
+		/**
+		 * Return Plugin Instance.
+		 *
+		 * @return object\Plugin
+		 */
+		public static function instance() {
+			if ( null === self::$instance ) {
+				self::$instance = new self();
+			}
+
+			return self::$instance;
+		}
+
+		/**
+		 * Load the plugin.
+		 *
+		 * @return void
+		 */
+		public static function load() {
+
+			// You can find these classes in the includes/ directory.
+			LoadTranslations::register();
+			{{#noCssFramework}}
+			{{/noCssFramework}}
+			{{^noCssFramework}}
+			EnqueueAssets::register();
+			{{/noCssFramework}}
+			{{#register_blocks}}
+			RegisterBlocks::register();
+			{{/register_blocks}}
+			{{#register_plugin_settings}}
+			RegisterPluginSettings::register();
+			{{/register_plugin_settings}}
+			{{#register_rest_api}}
+			RegisterRestAPI::register();
+			{{/register_rest_api}}
+			{{#register_block_patterns}}
+			RegisterBlockPatterns::register();
+			{{/register_block_patterns}}
+			{{#register_testimonial_custom_post_type}}
+			RegisterTestimonialCustomPostType::register();
+			{{/register_testimonial_custom_post_type}}
+			{{#register_team_custom_post_type}}
+			RegisterTeamCustomPostType::register();
+			{{/register_team_custom_post_type}}
+			{{#softwareLicensing}}
+			SoftwareLicensing::register();
+			{{/softwareLicensing}}
+
+			{{#load_dynamic_blocks}}
+			// Loop through and load dynamic block php files.
+			// glob() function searches for all pathnames matching the pattern.
+			foreach ( glob( __DIR__ . '/src/blocks/*/*.php' ) as $dynamic_block ) {
+				require_once $dynamic_block;
+			};
+			{{/load_dynamic_blocks}}
+		}
+	}
+}
+
+Plugin::load();

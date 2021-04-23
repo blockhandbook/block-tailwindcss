@@ -1,0 +1,6 @@
+/build
+/node_modules
+package-lock.json
+webpack.config.js
+.npmignore
+**/.DS_Store

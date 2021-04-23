@@ -1,0 +1,75 @@
+/**
+ * External Dependencies
+ */
+
+/**
+ * WordPress Dependencies
+ */
+import { useSelect, useDispatch } from '@wordpress/data';
+import { Guide, ExternalLink } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal Dependencies
+ */
+import './index.scss';
+import SoftwareLicensing from './software-licensing';
+import { config } from '../../../package';
+const { slug, slugCamelCase, upgradeLink } = config;
+
+const WelcomeGuide = () => {
+	const isActive = useSelect(
+		( select ) =>
+			select( 'core/edit-post' ).isFeatureActive( `${ slugCamelCase }Guide` ),
+		[]
+	);
+
+	const { licenseKey, licenseStatus } = useSelect(
+		( select ) => {
+
+			const pluginSettings = select(
+				`${ slug }/settings`
+			).getPluginSettings();
+
+			return {
+				licenseKey: pluginSettings.licenseKey,
+				licenseStatus: pluginSettings.licenseStatus };
+	} );
+
+	const { toggleFeature } = useDispatch( 'core/edit-post' );
+
+	if ( ! isActive ) {
+		return null;
+	}
+
+	return (
+		<>
+			<Guide
+				className={ `${ slug }-welcome-guide` }
+				onFinish={ () => toggleFeature( `${ slugCamelCase }Guide` ) }
+				pages={ [
+					{
+						image: <img src="/wp-content/plugins/{{slug}}/src/assets/img/welcome-guide-background.jpg" />,
+						content: (
+							<div className="tw-p-10 tw-pt-0">
+								<h1 className="tw-mt-0">{ __( 'Thank you for choosing the {{title}} plugin!', '{{textdomain}}' ) }</h1>
+								<p>{ __( 'Build beautiful websites faster by adding TailwindCSS utility classes to Gutenberg blocks.', '{{textdomain}}' ) }</p>
+								{
+									licenseStatus !== 'valid' &&
+									<>
+										<h2 className="tw-mb-0 tw-mt-10">{ __( 'Activate Utility Plugin', '{{textdomain}}' ) }</h2>
+										<p>{ __( 'Enter your license key below to receive plugin updates.', '{{textdomain}}' ) }</p>
+										<div className="tw-w-1/2">
+											<SoftwareLicensing label={ false } />
+									</div>
+									</>
+								}
+							</div> ),
+					},
+				] }
+			/>
+		</>
+	);
+}
+
+export default WelcomeGuide;

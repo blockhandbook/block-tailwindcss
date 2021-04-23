@@ -1,0 +1,97 @@
+/**
+ * External Dependencies
+ */
+import { data } from '@blockhandbook/data';
+const { withPosts } = data;
+
+/**
+ * WordPress Dependencies
+ */
+import { __ } from '@wordpress/i18n';
+import { Spinner } from '@wordpress/components';
+import { RawHTML } from '@wordpress/element';
+
+/**
+ * Internal Dependencies
+ */
+import Controls from './controls';
+import { config } from '../../../package.json';
+const { slug } = config;
+
+const Edit = ( props ) => {
+	const {
+		setAttributes,
+		className,
+		attributes,
+		posts,
+		attributes: {
+			postsToShow,
+		}
+	} = props;
+
+	if ( ! posts ) {
+		return (
+			<>
+				<Spinner />
+					Loading...
+			</>
+		);
+	}
+
+	const hasPosts = Array.isArray( posts ) && posts.length;
+	if ( ! hasPosts  ) {
+		return (
+			<>
+				<Controls
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+				/>
+				{ __( 'No posts found.', '{{textdomain}}' ) }
+				<p>
+				{
+					__( 'This is a starter dynamic team custom post type block.  To render a post go to team > add member. This block renders content saved to the server, in particular it loops through the team custom post type.  Edit this file in src/blocks/dynamic-team-custom-post-type-block/edit.js.  The frontend markup is rendered by the server and the code for that is in src/blocks/dynamic-team-custom-post-type-block/class-dynamic-team-custom-post-type-block.php.', '{{textdomain}}' )
+				}
+				</p>
+			</>
+		);
+	}
+
+	// Removing posts from display should be instant.
+	const displayPosts =
+	posts.length > postsToShow
+		? posts.slice( 0, postsToShow )
+		: posts;
+
+	return (
+		<>
+			<Controls
+				attributes={ attributes }
+				setAttributes={ setAttributes }
+			/>
+			<div className={ className } >
+				<p>
+				{
+					__( 'This is a starter dynamic team custom post type block.  This block renders content saved to the server, in particular it loops through the team custom post type.  Edit this file in src/blocks/dynamic-team-custom-post-type-block/edit.js.  The frontend markup is rendered by the server and the code for that is in src/blocks/dynamic-team-custom-post-type-block/class-dynamic-team-custom-post-type-block.php.', '{{textdomain}}' )
+				}
+				</p>
+				<ul className="{{#tailwindcss}}list-none ml-0 pl-0{{/tailwindcss}}{{#bootstrap}}list-unstyled ml-0 pl-0{{/bootstrap}}">
+					{
+						displayPosts.map( ( post, i ) => {
+							return (
+								<li className="{{#tailwindcss}}mb-5{{/tailwindcss}}{{#bootstrap}}mb-5{{/bootstrap}}" key={ post.id }>
+									<RawHTML>
+									{
+										post.content.rendered
+									}
+									</RawHTML>
+								</li>
+							);
+						} )
+					}
+				</ul>
+			</div>
+		</>
+	);
+}
+
+export default withPosts( Edit );

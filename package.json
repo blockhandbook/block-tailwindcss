@@ -1,0 +1,48 @@
+{
+	"name": "block-tailwindcss",
+	"version": "0.1.0",
+	"description": "A collection of utilities that make it easy to add Tailwindcss to WordPress block editor plugins and themes.",
+	"author": "leeshadle",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"wordpress",
+		"gutenberg",
+		"plugin",
+		"block",
+		"framework",
+		"scaffold"
+	],
+	"homepage": "https://github.com/blockhandbook/block-tailwindcss",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/blockhandbook/block-tailwindcss.git"
+	},
+	"bugs": {
+		"url": "https://github.com/blockhandbook/block-tailwindcss"
+	},
+	"engines": {
+		"node": ">=10",
+		"npm": ">=6.9"
+	},
+	"files": [
+		"lib"
+	],
+	"main": "index.js",
+	"scripts": {
+		"lerna:version": "lerna version",
+		"lerna:publish": "lerna publish"
+	},
+	"dependencies": {
+		"classnames": "^2.2.6",
+    "cross-env": "^7.0.3",
+    "postcss-cli": "^7.1.0",
+    "postcss-prepend-selector": "^0.3.1",
+    "tailwindcss": "2.0.1-compat"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"lerna": "^4.0.0"
+	}
+}

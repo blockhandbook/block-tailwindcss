@@ -1,0 +1,19 @@
+/**
+ * This file is for common or global editor only styles.
+ *
+ * The following styles get applied to the editor only.
+ * Place styles in the custom namespace below so they don't bleed
+ * into the rest of the editor.
+ */
+// Escape forward slashes, otherwise they won't compile
+// i.e. .w-1\/3 {}
+
+// Custom namespace
+[class*="{{slug}}"] {
+	// write common EDITOR ONLY plugin/block SASS styles here.
+}
+
+.block-editor-block-list__block[data-align=full] {
+	margin-left: -10px;
+	margin-right: -10px;
+}

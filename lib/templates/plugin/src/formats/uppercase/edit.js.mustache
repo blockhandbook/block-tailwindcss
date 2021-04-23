@@ -1,0 +1,42 @@
+/**
+ * External Dependencies
+ */
+
+/**
+ * WordPress Dependencies
+ */
+import { __ } from '@wordpress/i18n';
+import { RichTextToolbarButton } from '@wordpress/block-editor';
+import { toggleFormat } from '@wordpress/rich-text';
+
+
+/**
+ * Internal Dependencies
+ */
+import icon from './icon';
+import { config } from '../../../package';
+const { slug } = config;
+
+const edit = ( props ) => {
+	const {
+		isActive,
+		onChange,
+		value
+	} = props;
+
+	return (
+		<RichTextToolbarButton
+			icon={ icon }
+			title={ __( 'Uppercase', '{{textdomain}}' ) }
+			onClick={ () => {
+				onChange( toggleFormat(
+					value,
+					{ type: `${ slug }/uppercase` }
+				))
+			} }
+			isActive={ isActive }
+		/>
+	);
+}
+
+export default edit;

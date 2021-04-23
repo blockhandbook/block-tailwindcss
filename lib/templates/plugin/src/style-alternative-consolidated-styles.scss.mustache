@@ -1,0 +1,517 @@
+/*!
+  Write your common Plugin/Block SASS Styles here.  Place it in the custom namespace so you're styles don't bleed into the rest of the editor/site.
+*/
+// Escape forward slashes, otherwise they won't compile
+// i.e. .w-1\/3 {}
+
+// Custom namespace
+[class*="{{slug}}"] {
+	// write common plugin/block SASS styles here.
+	{{#bootstrap}}
+		{{#registerVariations}}
+
+	--bs-box-shadow-color: 0,0,0;
+
+	/* Box Shadow */
+	--bs-box-shadow-sm: 0 1px 3px 0 rgba( var( --bs-box-shadow-color ), 0.1), 0 1px 2px 0 rgba( var( --bs-box-shadow-color ), 0.06);
+	--bs-box-shadow-md:0 4px 6px -1px rgba( var( --bs-box-shadow-color ), 0.1), 0 2px 4px -1px rgba( var( --bs-box-shadow-color ), 0.06);
+	--bs-box-shadow-lg:0 10px 15px -3px rgba( var( --bs-box-shadow-color ), 0.1), 0 4px 6px -2px rgba( var( --bs-box-shadow-color ), 0.05);
+	--bs-box-shadow-xl:0 20px 25px -5px rgba( var( --bs-box-shadow-color ), 0.1), 0 10px 10px -5px rgba( var( --bs-box-shadow-color ), 0.04);
+		{{/registerVariations}}
+	{{/bootstrap}}
+	{{#tailwindcss}}
+		{{#registerVariations}}
+
+	--tw-box-shadow-color: 0,0,0;
+
+  /* Box Shadow */
+	--tw-box-shadow: 0 1px 3px 0 rgba( var( --tw-box-shadow-color ), 0.1), 0 1px 2px 0 rgba( var( --tw-box-shadow-color ), 0.06);
+	--tw-box-shadow-md:0 4px 6px -1px rgba( var( --tw-box-shadow-color ), 0.1), 0 2px 4px -1px rgba( var( --tw-box-shadow-color ), 0.06);
+	--tw-box-shadow-lg:0 10px 15px -3px rgba( var( --tw-box-shadow-color ), 0.1), 0 4px 6px -2px rgba( var( --tw-box-shadow-color ), 0.05);
+	--tw-box-shadow-xl:0 20px 25px -5px rgba( var( --tw-box-shadow-color ), 0.1), 0 10px 10px -5px rgba( var( --tw-box-shadow-color ), 0.04);
+		{{/registerVariations}}
+	{{/tailwindcss}}
+	{{#noCssFramework}}
+		{{#registerVariations}}
+
+	--{{slug}}-box-shadow-color: 0,0,0;
+
+	/* Box Shadow */
+	--{{slug}}-box-shadow-sm: 0 1px 3px 0 rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 1px 2px 0 rgba( var( --{{slug}}-box-shadow-color ), 0.06);
+	--{{slug}}-box-shadow-md:0 4px 6px -1px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 2px 4px -1px rgba( var( --{{slug}}-box-shadow-color ), 0.06);
+	--{{slug}}-box-shadow-lg:0 10px 15px -3px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 4px 6px -2px rgba( var( --{{slug}}-box-shadow-color ), 0.05);
+	--{{slug}}-box-shadow-xl:0 20px 25px -5px rgba( var( --{{slug}}-box-shadow-color ), 0.1), 0 10px 10px -5px rgba( var( --{{slug}}-box-shadow-color ), 0.04);
+		{{/registerVariations}}
+		{{#registerVariations}}
+
+// background color utilities
+	.bg-white {
+		background-color: #fff;
+	}
+	.bg-dark {
+		background-color: #666;
+	}
+		{{/registerVariations}}
+		{{^registerVariations}}
+			{{#load_dynamic_blocks}}
+
+	// background color utilities
+	.bg-white {
+		background-color: #fff;
+	}
+	.bg-dark {
+		background-color: #666;
+	}
+			{{/load_dynamic_blocks}}
+			{{^load_dynamic_blocks}}
+				{{#registerFrontend}}
+
+	// background color utilities
+	.bg-white {
+		background-color: #fff;
+	}
+	.bg-dark {
+		background-color: #666;
+	}
+				{{/registerFrontend}}
+				{{^registerFrontend}}
+					{{#innerBlock}}
+
+					// background color utilities
+	.bg-white {
+		background-color: #fff;
+	}
+	.bg-dark {
+		background-color: #666;
+	}
+					{{/innerBlock}}
+				{{/registerFrontend}}
+			{{/load_dynamic_blocks}}
+		{{/registerVariations}}
+		{{#registerVariations}}
+
+	// background-attachment utilities
+	.bg-scroll {
+		background-attachment: scroll;
+	}
+	.bg-fixed {
+		background-attachment: fixed;
+	}
+	.bg-local {
+		background-attachment: local;
+	}
+
+	// background-position utilities
+	.bg-center {
+		background-position: center;
+	}
+	.bg-bottom {
+		background-position: bottom;
+	}
+	.bg-left {
+		background-position: left;
+	}
+	.bg-left-bottom {
+		background-position: left bottom;
+	}
+	.bg-left-top {
+		background-position: left top;
+	}
+	.bg-right {
+		background-position: right;
+	}
+	.bg-right-bottom {
+		background-position: right bottom;
+	}
+	.bg-right-top {
+		background-position: right top;
+	}
+	.bg-top {
+		background-position: top;
+	}
+
+	// background-repeat utilities
+	.bg-no-repeat {
+		background-repeat: no-repeat;
+	}
+	.bg-repeat {
+		background-repeat: repeat;
+	}
+	.bg-repeat-x {
+		background-repeat: x;
+	}
+	.bg-repeat-y {
+		background-repeat: y;
+	}
+	.bg-repeat-round {
+		background-repeat: round;
+	}
+	.bg-repeat-space {
+		background-repeat: space;
+	}
+
+	// background-size utilities
+	.bg-cover {
+		background-size: cover;
+	}
+	.bg-contain {
+		background-size: contain;
+	}
+	.bg-auto {
+		background-size: auto;
+	}
+
+	// border-radius utilities
+	.rounded-none {
+		border-radius: 0;
+	}
+	.rounded-sm {
+		border-radius: 0.125rem;
+	}
+	.rounded {
+		border-radius: 0.25rem;
+	}
+	.rounded-md {
+		border-radius: 0.375rem;
+	}
+	.rounded-lg {
+		border-radius: 0.5rem;
+	}
+	.rounded-full {
+		border-radius: 9999px;
+	}
+
+	// border-style utilities
+	.border-none {
+		border-style: none;
+	}
+	.border-solid {
+		border-style: solid;
+	}
+	.border-dashed {
+		border-style: dashed;
+	}
+	.border-dotted {
+		border-style: dotted;
+	}
+	.border-double {
+		border-style: double;
+	}
+
+	// border-width utilities
+	.border-0 {
+		border-width: 0;
+	}
+	.border {
+		border-width: 1px;
+	}
+	.border-2 {
+		border-width: 2px;
+	}
+	.border-4 {
+		border-width: 4px;
+	}
+	.border-8 {
+		border-width: 8px;
+	}
+
+	// box-shadow utilities
+	.shadow-none {
+		box-shadow: none;
+	}
+	.shadow {
+		box-shadow: var(--{{slug}}-box-shadow-sm);
+	}
+	.shadow-md {
+		box-shadow: var(--{{slug}}-box-shadow-md);
+	}
+	.shadow-lg {
+		box-shadow: var(--{{slug}}-box-shadow-lg);
+	}
+	.shadow-xl {
+		box-shadow: var(--{{slug}}-box-shadow-xl);
+	}
+		{{/registerVariations}}
+		{{^registerVariations}}
+			{{#registerFrontend}}
+
+	// shadow utilities
+	.shadow-md {
+		box-shadow: 0 4px 6px -1px rgba( 0, 0, 0, 0.1), 0 2px 4px -1px rgba( 0, 0, 0, 0.06);
+	}
+
+	// border radius utilities
+	.rounded-lg {
+		border-radius: 0.5rem;
+	}
+			{{/registerFrontend}}
+			{{#innerBlock}}
+				{{#registerFrontend}}
+				{{/registerFrontend}}
+				{{^registerFrontend}}
+	// border radius utilities
+	.rounded {
+		border-radius: 0.25rem;
+	}
+				{{/registerFrontend}}
+			{{/innerBlock}}
+			{{#load_dynamic_blocks}}
+	.rounded-full {
+		border-radius: 9999px;
+	}
+			{{/load_dynamic_blocks}}
+		{{/registerVariations}}
+		{{#registerVariations}}
+
+	// display utilities
+	.d-block {
+		display: block;
+	}
+	.flex {
+		display: flex;
+	}
+		{{/registerVariations}}
+		{{^registerVariations}}
+			{{#load_dynamic_blocks}}
+
+	// display utilities
+	.d-block {
+		display: block;
+	}
+	.flex {
+		display: flex;
+	}
+			{{/load_dynamic_blocks}}
+		{{/registerVariations}}
+		{{#load_dynamic_blocks}}
+	.grid {
+		display: grid;
+	}
+		{{/load_dynamic_blocks}}
+		{{#registerVariations}}
+	.justify-between {
+		justify-content: space-between;
+	}
+	.overflow-hidden {
+		overflow: hidden;
+	}
+	.w-20 {
+		width: 20%;
+	}
+	.w-full {
+		width: 100%;
+	}
+
+	// float utilities
+	.float-right {
+		float: right;
+	}
+	.clear-fix {
+		&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+		{{/registerVariations}}
+		{{^registerVariations}}
+			{{#load_dynamic_blocks}}
+	.w-20 {
+		width: 20%;
+	}
+	.w-full {
+		width: 100%;
+	}
+			{{/load_dynamic_blocks}}
+		{{/registerVariations}}
+		{{#load_dynamic_blocks}}
+
+	// grid utilities
+	.grid-cols-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+	.gap-10 {
+		gap: 2.5rem;
+	}
+		{{/load_dynamic_blocks}}
+		{{#registerVariations}}
+
+	// height utilities
+	.h-24 {
+		height: 6rem;
+	}
+		{{/registerVariations}}
+		{{^registerVariations}}
+			{{#load_dynamic_blocks}}
+	.h-24 {
+		height: 6rem;
+	}
+			{{/load_dynamic_blocks}}
+		{{/registerVariations}}
+		{{#registerVariations}}
+
+	// margin utilities
+	.m-0 {
+		margin: 0;
+	}
+	.mb-0 {
+		margin-bottom: 0;
+	}
+	.mb-3 {
+		margin-bottom: 0.75rem;
+	}
+	.mt-5 {
+		margin-top: 1.25rem;
+	}
+	.m-2 {
+		margin: 0.5rem;
+	}
+	.m-4 {
+		margin: 1rem;
+	}
+	.m-8 {
+		margin: 2rem;
+	}
+	.m-16 {
+		margin: 4rem;
+	}
+	.mx-auto {
+		margin: auto;
+	}
+	.ml-auto {
+		margin-left: auto;
+	}
+		{{/registerVariations}}
+		{{^registerVariations}}
+			{{#innerBlock}}
+	.mb-0 {
+		margin-bottom: 0;
+	}
+			{{/innerBlock}}
+			{{#load_dynamic_blocks}}
+	.mb-2 {
+		margin-bottom: 0.5rem;
+	}
+	.ml-0 {
+		margin-left: 0;
+	}
+	.mt-5 {
+		margin-top: 1.25rem;
+	}
+	.mx-auto {
+		margin: auto;
+	}
+	.ml-auto {
+		margin-left: auto;
+	}
+			{{/load_dynamic_blocks}}
+		{{/registerVariations}}
+		{{#registerVariations}}
+
+	// opacity utilities
+	$max: 100;
+	$step: 10;
+	@for $i from 0 through ceil($max/$step) {
+		.opacity-#{$i*10} {
+			opacity: ($i/10);
+		}
+	}
+		{{/registerVariations}}
+		{{#registerVariations}}
+
+	// padding utilities
+	.p-0 {
+		padding: 0;
+	}
+	.pb-0 {
+		padding-bottom: 0;
+	}
+	.pl-0 {
+		padding-left: 0;
+	}
+	.pt-3 {
+		padding-top: 0.75rem;
+	}
+	.px-3 {
+		padding-left: 0.75rem;
+		padding-right: 0.75rem;
+	}
+	.px-6 {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+	.p-2 {
+		padding: 0.5rem;
+	}
+	.p-4 {
+		padding: 1rem;
+	}
+		{{/registerVariations}}
+		{{#registerFrontend}}
+	.p-5 {
+		padding: 1.25rem;
+	}
+		{{/registerFrontend}}
+		{{^registerFrontend}}
+			{{#innerBlock}}
+	.p-5 {
+		padding: 1.25rem;
+	}
+			{{/innerBlock}}
+		{{/registerFrontend}}
+		{{#registerVariations}}
+	.p-8 {
+		padding: 2rem;
+	}
+		{{/registerVariations}}
+		{{#load_dynamic_blocks}}
+	.p-10 {
+		padding: 2.5rem;
+	}
+		{{/load_dynamic_blocks}}
+		{{#registerVariations}}
+	.p-16 {
+		padding: 4rem;
+	}
+		{{/registerVariations}}
+		{{#registerVariations}}
+
+	// position utilities
+	.absolute {
+		position: absolute;
+	}
+	.relative {
+		position: relative;
+	}
+	.inset-0 {
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+		{{/registerVariations}}
+		{{#load_dynamic_blocks}}
+
+	// list utilities
+	.list-none {
+		list-style: none;
+	}
+		{{/load_dynamic_blocks}}
+		{{#registerFrontend}}
+
+	// typography utilities
+	.text-white {
+		color: #fff;
+	}
+		{{/registerFrontend}}
+		{{#registerVariations}}
+
+	// z-index utilities
+	.z-0 {
+		z-index: 0;
+	}
+	.z-10 {
+		z-index: 10;
+	}
+		{{/registerVariations}}
+	{{/noCssFramework}}
+}

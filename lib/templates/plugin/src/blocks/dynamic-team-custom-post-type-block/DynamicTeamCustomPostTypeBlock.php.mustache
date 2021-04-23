@@ -1,0 +1,108 @@
+<?php
+/**
+ * Register & render dynamic team custom post type block.
+ *
+ * @package {{phpClassName}}
+ */
+
+namespace {{phpClassName}};
+
+/**
+ * Register & render dynamic team custom post type block in php.
+ *
+ * @since {{version}}
+ */
+class DynamicTeamCustomPostTypeBlock {
+	/**
+	 * Register class with appropriate WordPress hooks
+	 */
+	public static function register() {
+		$instance = new self();
+		add_action( 'init', array( $instance, 'register_block_type' ) );
+	}
+
+	/**
+	 * Registers the `{{slug}}/dynamic-team-custom-post-type-block` block on server.
+	 */
+	public function register_block_type() {
+		// These scripts and styles are registered in includes/class-register-blocks.php.
+		register_block_type_from_metadata(
+			__DIR__,
+			array(
+				'render_callback' => array(
+					$this,
+					'render_block',
+				),
+			)
+		);
+	}
+
+	/**
+	 * Render dynamic block markup.
+	 *
+	 * @param Array  $attributes block attributes.
+	 * @param String $content block inner content.
+	 * @return string The dynamic block markup.
+	 */
+	public function render_block( $attributes, $content ) {
+
+		$args = array(
+			'post_type'        => $attributes['postType'],
+			'numberposts'      => $attributes['postsToShow'],
+			'post_status'      => 'publish',
+			'order'            => $attributes['order'],
+			'orderby'          => $attributes['orderBy'],
+			'suppress_filters' => false,
+		);
+
+		if ( isset( $attributes['categories'] ) && ! isset( $attributes['taxonomy'] ) ) {
+			$args['category__in'] = array_column(
+				$attributes['categories'],
+				'id'
+			);
+		}
+
+		if ( count( $attributes['categories'] ) > 0 && isset( $attributes['taxonomy'] ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => $attributes['taxonomy'],
+					'field'    => 'term_id',
+					'terms'    => array_column(
+						$attributes['categories'],
+						'id'
+					),
+				),
+			);
+		}
+
+		$recent_posts = get_posts( $args );
+
+		if ( count( $recent_posts ) === 0 ) {
+			return 'No posts';
+		}
+
+		$posts = '';
+
+		foreach ( $recent_posts as $post ) {
+			$posts .= $post->post_content;
+		}
+
+		$class = 'wp-block-{{slug}}-dynamic-team-custom-post-type-block';
+		if ( isset( $attributes['align'] ) ) {
+			$class .= ' align' . $attributes['align'];
+		}
+
+		return sprintf(
+			'<div class="%1$s">%2$s</div>',
+			$class,
+			$posts
+		);
+	}
+}
+
+/**
+ * Initialize class.
+ *
+ * @since {{version}}
+ */
+DynamicTeamCustomPostTypeBlock::register();
