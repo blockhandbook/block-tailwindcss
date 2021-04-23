@@ -1,6 +1,6 @@
 {
 	"name": "block-tailwindcss",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A collection of utilities that make it easy to add Tailwindcss to WordPress block editor plugins and themes.",
 	"author": "leeshadle",
 	"license": "GPL-2.0-or-later",
@@ -34,10 +34,10 @@
 	},
 	"dependencies": {
 		"classnames": "^2.2.6",
-    "cross-env": "^7.0.3",
-    "postcss-cli": "^7.1.0",
-    "postcss-prepend-selector": "^0.3.1",
-    "tailwindcss": "2.0.1-compat"
+		"cross-env": "^7.0.3",
+		"postcss-cli": "^7.1.0",
+		"postcss-prepend-selector": "^0.3.1",
+		"tailwindcss": "2.0.1-compat"
 	},
 	"publishConfig": {
 		"access": "public"
