@@ -33,11 +33,9 @@
 		"lerna:publish": "lerna publish"
 	},
 	"dependencies": {
-		"classnames": "^2.2.6",
-		"cross-env": "^7.0.3",
-		"postcss-cli": "^7.1.0",
-		"postcss-prepend-selector": "^0.3.1",
-		"tailwindcss": "2.0.1-compat"
+		"classnames": "^2.3.1",
+		"postcss-cli": "^8.0.0",
+		"tailwindcss": "2.1.0"
 	},
 	"publishConfig": {
 		"access": "public"
